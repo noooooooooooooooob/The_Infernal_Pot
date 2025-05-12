@@ -46,6 +46,11 @@ public class BattleManager : MonoBehaviour
         GameReadyPanel.SetActive(false);
         PlayerCalculatePanel.SetActive(false);
         BattleStartButton.SetActive(false);
+        for (int i = 0; i < PlayerPlayingCards.Length; i++)
+        {
+            PlayerPlayingCards[i].SetActive(true);
+            EnemyPlayingCards[i].SetActive(true);
+        }
         handManager.ClearHand();
 
         yield return new WaitForSeconds(2.0f);
@@ -86,18 +91,22 @@ public class BattleManager : MonoBehaviour
         string result;
         if (playerCard.cardData.rank > enemyCard.cardData.rank)
         {
+            playerCharacter.PlayAttack(); // 애니메이션 먼저 재생
+            yield return new WaitUntil(() => playerCharacter.hasHit); // 애니메이션 중 타격 이벤트 대기
             enemyCharacter.TakeDamage(playerCard.cardData.rank - enemyCard.cardData.rank);
-            playerCharacter.PlayAttack();
             result = "Player Wins!";
         }
         else if (playerCard.cardData.rank < enemyCard.cardData.rank)
         {
+            enemyCharacter.PlayAttack();
+            yield return new WaitUntil(() => enemyCharacter.hasHit);
             playerCharacter.TakeDamage(enemyCard.cardData.rank - playerCard.cardData.rank);
             result = "Enemy Wins!";
         }
         else
         {
             result = "Draw!";
+            yield return new WaitForSeconds(2.0f);
         }
 
         Debug.Log($"⚔️ 결과: {result}");
@@ -111,6 +120,11 @@ public class BattleManager : MonoBehaviour
         GameReadyPanel.SetActive(true);
         PlayerCalculatePanel.SetActive(true);
         BattleStartButton.SetActive(true);
+        for (int i = 0; i < PlayerPlayingCards.Length; i++)
+        {
+            PlayerPlayingCards[i].SetActive(false);
+            EnemyPlayingCards[i].SetActive(false);
+        }
         turnManager.isBattle = false;
     }
 

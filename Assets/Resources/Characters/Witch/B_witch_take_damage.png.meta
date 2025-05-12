@@ -109,11 +109,11 @@ TextureImporter:
       name: B_witch_take_damage_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 101
-        width: 22
-        height: 39
-      alignment: 0
+        x: 0
+        y: 96
+        width: 32
+        height: 48
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -131,11 +131,11 @@ TextureImporter:
       name: B_witch_take_damage_1
       rect:
         serializedVersion: 2
-        x: 5
-        y: 53
-        width: 23
-        height: 36
-      alignment: 0
+        x: 0
+        y: 48
+        width: 32
+        height: 48
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -153,11 +153,11 @@ TextureImporter:
       name: B_witch_take_damage_2
       rect:
         serializedVersion: 2
-        x: 5
-        y: 5
-        width: 21
-        height: 39
-      alignment: 0
+        x: 0
+        y: 0
+        width: 32
+        height: 48
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -175,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 79f847323a4f4fc409f1913c44621b7e
     internalID: 0
     vertices: []
     indices: 

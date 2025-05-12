@@ -7,11 +7,14 @@ public class Character : MonoBehaviour
     public int currentHP;
     public TextMeshProUGUI hpText;
     Animator animator;
+    Enemy enemyCharacter;
+    public bool hasHit = false;
 
     void Start()
     {
         currentHP = maxHP;
         animator = GetComponent<Animator>();
+        enemyCharacter = FindAnyObjectByType<Enemy>();
     }
 
     public void TakeDamage(int amount)
@@ -38,7 +41,14 @@ public class Character : MonoBehaviour
 
     public void PlayAttack()
     {
+        hasHit = false;
         animator.SetTrigger("Attack");
+    }
+    public void AttackFinished()
+    {
+        hasHit = true;
+        animator.SetTrigger("Finished");
+        enemyCharacter.PlayHit();
     }
 
     public void PlayHit()
@@ -49,5 +59,9 @@ public class Character : MonoBehaviour
     public void PlayDie()
     {
         animator.SetTrigger("Die");
+    }
+    public void AnimFinished()
+    {
+        animator.SetTrigger("Finished");
     }
 }

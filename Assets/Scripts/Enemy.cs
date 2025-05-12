@@ -6,10 +6,15 @@ public class Enemy : MonoBehaviour
     public int maxHP = 100;
     public int currentHP;
     public TextMeshProUGUI hpText;
+    Animator animator;
+    Character playerCharacter;
+    public bool hasHit = false;
 
     void Start()
     {
         currentHP = maxHP;
+        animator = GetComponent<Animator>();
+        playerCharacter = FindAnyObjectByType<Character>();
     }
 
     public void TakeDamage(int amount)
@@ -32,5 +37,24 @@ public class Enemy : MonoBehaviour
     public void Heal(int amount)
     {
         currentHP = Mathf.Min(currentHP + amount, maxHP);
+    }
+    public void PlayHit()
+    {
+        animator.SetTrigger("Hit");
+    }
+    public void PlayAttack()
+    {
+        hasHit = false;
+        animator.SetTrigger("Attack");
+    }
+    public void AttackFinished()
+    {
+        animator.SetTrigger("Finished");
+        playerCharacter.PlayHit();
+        hasHit = true;
+    }
+    public void AnimFinished()
+    {
+        animator.SetTrigger("Finished");
     }
 }

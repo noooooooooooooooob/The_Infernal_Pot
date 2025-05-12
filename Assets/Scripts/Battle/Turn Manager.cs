@@ -50,7 +50,6 @@ public class TurnManager : MonoBehaviour
         yield return new WaitUntil(() => playConfirmed);
         currentTurnState = TurnState.Play;
         playConfirmed = false;
-        
     }
     IEnumerator PlayPhase()
     {

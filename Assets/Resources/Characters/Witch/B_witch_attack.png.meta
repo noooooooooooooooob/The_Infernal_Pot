@@ -239,7 +239,7 @@ TextureImporter:
         y: 368
         width: 104
         height: 46
-      alignment: 0
+      alignment: 9
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -261,7 +261,7 @@ TextureImporter:
         y: 322
         width: 104
         height: 46
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -283,7 +283,7 @@ TextureImporter:
         y: 276
         width: 104
         height: 46
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -305,7 +305,7 @@ TextureImporter:
         y: 230
         width: 104
         height: 46
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -327,7 +327,7 @@ TextureImporter:
         y: 184
         width: 104
         height: 46
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -349,7 +349,7 @@ TextureImporter:
         y: 138
         width: 104
         height: 46
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -371,7 +371,7 @@ TextureImporter:
         y: 92
         width: 104
         height: 46
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -393,7 +393,7 @@ TextureImporter:
         y: 46
         width: 104
         height: 46
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -415,7 +415,7 @@ TextureImporter:
         y: 0
         width: 104
         height: 46
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
