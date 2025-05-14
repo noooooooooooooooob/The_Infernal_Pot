@@ -4,8 +4,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public int maxHP = 100;
+    public int shield = 0;
+    public int buff = 0;
     public int currentHP;
     public TextMeshProUGUI hpText;
+    public TextMeshProUGUI shiledText;
+    public TextMeshProUGUI buffText;
     Animator animator;
     Character playerCharacter;
     public bool hasHit = false;
@@ -19,6 +23,20 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        if (shield > 0)
+        {
+            shield -= amount;
+            if (shield < 0)
+            {
+                amount = -shield;
+                shield = 0;
+            }
+            else
+            {
+                amount = 0;
+            }
+            shiledText.text = $"{shield}";
+        }
         currentHP -= amount;
         currentHP = Mathf.Max(0, currentHP);
         Debug.Log($"{gameObject.name} 체력: {currentHP}/{maxHP}");
@@ -37,6 +55,16 @@ public class Enemy : MonoBehaviour
     public void Heal(int amount)
     {
         currentHP = Mathf.Min(currentHP + amount, maxHP);
+    }
+    public void AddShield(int amount)
+    {
+        shield += amount;
+        shiledText.text = $"{shield}";
+    }
+    public void AddBuff(int amount)
+    {
+        buff += amount;
+        buffText.text = $"{buff}";
     }
     public void PlayHit()
     {

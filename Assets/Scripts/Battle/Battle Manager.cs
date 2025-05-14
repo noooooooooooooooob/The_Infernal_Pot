@@ -91,16 +91,86 @@ public class BattleManager : MonoBehaviour
         string result;
         if (playerCard.cardData.rank > enemyCard.cardData.rank)
         {
-            playerCharacter.PlayAttack(); // 애니메이션 먼저 재생
-            yield return new WaitUntil(() => playerCharacter.hasHit); // 애니메이션 중 타격 이벤트 대기
-            enemyCharacter.TakeDamage(playerCard.cardData.rank - enemyCard.cardData.rank);
+            switch (playerCard.cardData.type)
+            {
+                case CardType.Club:
+                    playerCharacter.AddShield(playerCard.cardData.rank);
+                    break;
+                case CardType.Diamond:
+                    playerCharacter.PlayAttack(); // 애니메이션 먼저 재생
+                    yield return new WaitUntil(() => playerCharacter.hasHit); // 애니메이션 중 타격 이벤트 대기
+                    enemyCharacter.TakeDamage(playerCard.cardData.rank - enemyCard.cardData.rank);
+                    break;
+                case CardType.Heart:
+                    playerCharacter.Heal(playerCard.cardData.rank);
+                    break;
+                case CardType.Spade:
+                    playerCharacter.AddShield(playerCard.cardData.rank);
+                    break;
+                default:
+                    break;
+            }
+            yield return new WaitForSeconds(1.0f);
+            switch (enemyCard.cardData.type)
+            {
+                case CardType.Club:
+                    enemyCharacter.AddShield(enemyCard.cardData.rank);
+                    break;
+                case CardType.Heart:
+                    enemyCharacter.Heal(enemyCard.cardData.rank);
+                    break;
+                case CardType.Spade:
+                    enemyCharacter.AddShield(enemyCard.cardData.rank);
+                    break;
+                case CardType.Diamond:
+                    enemyCharacter.PlayAttack(); // 애니메이션 먼저 재생
+                    yield return new WaitUntil(() => enemyCharacter.hasHit); // 애니메이션 중 타격 이벤트 대기
+                    playerCharacter.TakeDamage(enemyCard.cardData.rank - playerCard.cardData.rank);
+                    break;
+            }
+            yield return new WaitForSeconds(1.0f);
             result = "Player Wins!";
         }
         else if (playerCard.cardData.rank < enemyCard.cardData.rank)
         {
-            enemyCharacter.PlayAttack();
-            yield return new WaitUntil(() => enemyCharacter.hasHit);
-            playerCharacter.TakeDamage(enemyCard.cardData.rank - playerCard.cardData.rank);
+            switch (enemyCard.cardData.type)
+            {
+                case CardType.Club:
+                    enemyCharacter.AddShield(enemyCard.cardData.rank);
+                    break;
+                case CardType.Diamond:
+                    enemyCharacter.PlayAttack(); // 애니메이션 먼저 재생
+                    yield return new WaitUntil(() => enemyCharacter.hasHit); // 애니메이션 중 타격 이벤트 대기
+                    playerCharacter.TakeDamage(enemyCard.cardData.rank - playerCard.cardData.rank);
+                    break;
+                case CardType.Heart:
+                    enemyCharacter.Heal(enemyCard.cardData.rank);
+                    break;
+                case CardType.Spade:
+                    enemyCharacter.AddShield(enemyCard.cardData.rank);
+                    break;
+                default:
+                    break;
+            }
+            yield return new WaitForSeconds(1.0f);
+            switch (playerCard.cardData.type)
+            {
+                case CardType.Club:
+                    playerCharacter.AddShield(playerCard.cardData.rank);
+                    break;
+                case CardType.Heart:
+                    playerCharacter.Heal(playerCard.cardData.rank);
+                    break;
+                case CardType.Spade:
+                    playerCharacter.AddShield(playerCard.cardData.rank);
+                    break;
+                case CardType.Diamond:
+                    playerCharacter.PlayAttack(); // 애니메이션 먼저 재생
+                    yield return new WaitUntil(() => playerCharacter.hasHit); // 애니메이션 중 타격 이벤트 대기
+                    enemyCharacter.TakeDamage(playerCard.cardData.rank - enemyCard.cardData.rank);
+                    break;
+            }
+            yield return new WaitForSeconds(1.0f);
             result = "Enemy Wins!";
         }
         else
