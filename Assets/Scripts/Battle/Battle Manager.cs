@@ -25,6 +25,8 @@ public class BattleManager : MonoBehaviour
     public GameObject GameReadyPanel;
     public GameObject PlayerCalculatePanel;
     public GameObject BattleStartButton;
+    // 게임 오버 or 승리 시 UI
+    public GameObject GameOverPanel;
 
     void Awake()
     {
@@ -85,22 +87,115 @@ public class BattleManager : MonoBehaviour
     IEnumerator ResolveOneBattle(Card playerCard, Card enemyCard)
     {
         // 애니메이션 등 시각 효과 시작 (예시)
-        Debug.Log($"🔥 전투 : Player {playerCard.cardData.type} {playerCard.cardData.rank} vs Enemy {enemyCard.cardData.type} {enemyCard.cardData.rank}");
+        // Debug.Log($"🔥 전투 : Player {playerCard.cardData.type} {playerCard.cardData.rank} vs Enemy {enemyCard.cardData.type} {enemyCard.cardData.rank}");
 
         // 예시: rank 비교로 승부 결정
         string result;
         if (playerCard.cardData.rank > enemyCard.cardData.rank)
         {
+<<<<<<< HEAD
             playerCharacter.PlayAttack(); // 애니메이션 먼저 재생
             yield return new WaitUntil(() => playerCharacter.hasHit); // 애니메이션 중 타격 이벤트 대기
             enemyCharacter.TakeDamage(playerCard.cardData.rank - enemyCard.cardData.rank);
+            enemyCharacter.PlayHit();
+            if(enemyCharacter.TakeDamage(playerCard.cardData.rank - enemyCard.cardData.rank) <= 0)
+            {
+                enemyCharacter.PlayDie();
+                GameOver();
+            }
+=======
+            switch (playerCard.cardData.type)
+            {
+                case CardType.Club:
+                    playerCharacter.AddShield(playerCard.cardData.rank);
+                    break;
+                case CardType.Diamond:
+                    playerCharacter.PlayAttack(); // 애니메이션 먼저 재생
+                    yield return new WaitUntil(() => playerCharacter.hasHit); // 애니메이션 중 타격 이벤트 대기
+                    enemyCharacter.TakeDamage(playerCard.cardData.rank - enemyCard.cardData.rank);
+                    break;
+                case CardType.Heart:
+                    playerCharacter.Heal(playerCard.cardData.rank);
+                    break;
+                case CardType.Spade:
+                    playerCharacter.AddShield(playerCard.cardData.rank);
+                    break;
+                default:
+                    break;
+            }
+            yield return new WaitForSeconds(1.0f);
+            switch (enemyCard.cardData.type)
+            {
+                case CardType.Club:
+                    enemyCharacter.AddShield(enemyCard.cardData.rank);
+                    break;
+                case CardType.Heart:
+                    enemyCharacter.Heal(enemyCard.cardData.rank);
+                    break;
+                case CardType.Spade:
+                    enemyCharacter.AddShield(enemyCard.cardData.rank);
+                    break;
+                case CardType.Diamond:
+                    enemyCharacter.PlayAttack(); // 애니메이션 먼저 재생
+                    yield return new WaitUntil(() => enemyCharacter.hasHit); // 애니메이션 중 타격 이벤트 대기
+                    playerCharacter.TakeDamage(enemyCard.cardData.rank - playerCard.cardData.rank);
+                    break;
+            }
+            yield return new WaitForSeconds(1.0f);
+>>>>>>> be10e24bf0c8f64cc708f4052c989a108f0b1de3
             result = "Player Wins!";
         }
         else if (playerCard.cardData.rank < enemyCard.cardData.rank)
         {
+<<<<<<< HEAD
             enemyCharacter.PlayAttack();
             yield return new WaitUntil(() => enemyCharacter.hasHit);
-            playerCharacter.TakeDamage(enemyCard.cardData.rank - playerCard.cardData.rank);
+            playerCharacter.PlayHit();
+            if(playerCharacter.TakeDamage(enemyCard.cardData.rank - playerCard.cardData.rank) <= 0)
+            {
+                playerCharacter.PlayDie();
+                GameOver();
+            }
+=======
+            switch (enemyCard.cardData.type)
+            {
+                case CardType.Club:
+                    enemyCharacter.AddShield(enemyCard.cardData.rank);
+                    break;
+                case CardType.Diamond:
+                    enemyCharacter.PlayAttack(); // 애니메이션 먼저 재생
+                    yield return new WaitUntil(() => enemyCharacter.hasHit); // 애니메이션 중 타격 이벤트 대기
+                    playerCharacter.TakeDamage(enemyCard.cardData.rank - playerCard.cardData.rank);
+                    break;
+                case CardType.Heart:
+                    enemyCharacter.Heal(enemyCard.cardData.rank);
+                    break;
+                case CardType.Spade:
+                    enemyCharacter.AddShield(enemyCard.cardData.rank);
+                    break;
+                default:
+                    break;
+            }
+            yield return new WaitForSeconds(1.0f);
+            switch (playerCard.cardData.type)
+            {
+                case CardType.Club:
+                    playerCharacter.AddShield(playerCard.cardData.rank);
+                    break;
+                case CardType.Heart:
+                    playerCharacter.Heal(playerCard.cardData.rank);
+                    break;
+                case CardType.Spade:
+                    playerCharacter.AddShield(playerCard.cardData.rank);
+                    break;
+                case CardType.Diamond:
+                    playerCharacter.PlayAttack(); // 애니메이션 먼저 재생
+                    yield return new WaitUntil(() => playerCharacter.hasHit); // 애니메이션 중 타격 이벤트 대기
+                    enemyCharacter.TakeDamage(playerCard.cardData.rank - enemyCard.cardData.rank);
+                    break;
+            }
+            yield return new WaitForSeconds(1.0f);
+>>>>>>> be10e24bf0c8f64cc708f4052c989a108f0b1de3
             result = "Enemy Wins!";
         }
         else
@@ -154,5 +249,15 @@ public class BattleManager : MonoBehaviour
         {
             EnemyPlayingCards[i].GetComponent<SpriteRenderer>().sprite = EnemyPlayingCards[i].GetComponent<Card>().GetSprite();
         }
+    }
+    public void GameOver()
+    {
+        StopAllCoroutines();
+        GameOverPanel.SetActive(true);
+    }
+    public void GameVictory()
+    {
+        StopAllCoroutines();
+        GameOverPanel.SetActive(true);
     }
 }
